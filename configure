@@ -42,11 +42,16 @@ get_src https://android.googlesource.com/platform/external/pcre
 get_src https://android.googlesource.com/platform/external/zlib
 	cd zlib
 	checkout
-	cd ../external
+	cd src
+	./configure
+	make
+	cp -fv minigzip.exe ../../
+	cd ../../external
 get_src https://github.com/CyanogenMod/android_system_core.git
 	cd android_system_core
 	checkout_external
 	cd ..
+get_src https://github.com/AKuHAK/pxa1088-mkbootimg.git
 get_src https://github.com/Chainfire/sgs4ext4fs
 	cd ..
 	

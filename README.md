@@ -20,7 +20,11 @@ sgs4ext4fs
 unpackbootimg
 ext2simg
 img2simg
-simg2img 
+simg2img
+minigzip
+pxa1088-mkbootimg
+pxa1088-unpackbootimg
+pxa1088-dtbTool
 
 $ make clean
 

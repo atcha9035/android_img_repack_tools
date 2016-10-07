@@ -56,6 +56,7 @@ ZLIB_SRCS= \
 	zlib/src/inflate.c \
 	zlib/src/inftrees.c \
 	zlib/src/inffast.c \
+	zlib/src/minigzip.c \
 	zlib/src/trees.c \
 	zlib/src/uncompr.c \
 	zlib/src/zutil.c
@@ -111,6 +112,9 @@ all: \
 	make_ext4fs \
 	make_ext4fs_def \
 	ext2simg \
+	pxa1088-mkbootimg \
+	pxa1088-unpackbootimg \
+	pxa1088-dtbtool \
 	unpackbootimg \
 	sgs4ext4fs
 
@@ -132,6 +136,7 @@ libpcre:
 libz:
 	@$(ECHO) "Building zlib_host..."
 	@$(CC) -c $(ZLIB_SRCS) $(CFLAGS)
+	cp -fv $(ZLIB_SRCS)minigzip.exe .
 	@$(AR) cqs $@.a *.o
 	@$(RM) -rfv *.o
 	@$(ECHO) "*******************************************"
@@ -190,6 +195,21 @@ make_ext4fs_def:
 ext2simg:
 	@$(ECHO) "Building ext2simg..."
 	@$(CC) -o $@ extras/ext4_utils/ext2simg.c $(EXT4FS_SRCS) $(CFLAGS) $(LDFLAGS) $(LIBS) $(LIBZ)
+	@$(ECHO) "*******************************************"
+	
+pxa1088-mkbootimg:
+	@$(ECHO) "Building pxa1088-mkbootimg..."
+	$(CC) external/pxa1088-mkbootimg/mkbootimg.c -o $@ $(CFLAGS) $(LIBS) libmincrypt_host.a
+	@$(ECHO) "*******************************************"
+
+pxa1088-unpackbootimg:
+	@$(ECHO) "Building pxa1088-unpackbootimg..."
+	$(CC) external/pxa1088-mkbootimg/unpackbootimg.c -o $@ $(CFLAGS) $(LIBS) libmincrypt_host.a
+	@$(ECHO) "*******************************************"
+
+pxa1088-dtbtool:
+	@$(ECHO) "Building pxa1088-dtbtool..."
+	$(CC) external/pxa1088-mkbootimg/dtbtool.c -o $@ $(CFLAGS) $(LIBS) libmincrypt_host.a
 	@$(ECHO) "*******************************************"
 	
 unpackbootimg:
