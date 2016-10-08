@@ -34,3 +34,5 @@ $ make clear
 
 will remove sources
 
+minigzip and mkimage are compiled in configure stage
+
