@@ -22,37 +22,44 @@ edit_text() {
 }
 mkdir external
 
-get_src https://android.googlesource.com/platform/system/core
+get_src git://android.googlesource.com/platform/system/core
 	cd core
 	checkout
 	cd ..
-get_src https://android.googlesource.com/platform/system/extras
+get_src git://android.googlesource.com/platform/system/extras
 	cd extras
 	checkout
 	cd ..
-get_src https://android.googlesource.com/platform/external/libselinux
+get_src git://android.googlesource.com/platform/external/libselinux
 	cd libselinux
 	checkout
 	cd ..
-get_src https://android.googlesource.com/platform/external/pcre
+get_src git://android.googlesource.com/platform/external/pcre
 	cd pcre
 	checkout
 	dist/configure && make
 	cd ..
-get_src https://android.googlesource.com/platform/external/zlib
+get_src git://android.googlesource.com/platform/external/zlib
 	cd zlib
 	checkout
 	cd src
 	./configure
 	make
-	cp -fv minigzip.exe ../../
+	cp -fv minigzip ../../
 	cd ../../external
-get_src https://github.com/CyanogenMod/android_system_core.git
+get_src git://github.com/CyanogenMod/android_system_core.git
 	cd android_system_core
 	checkout_external
 	cd ..
-get_src https://github.com/AKuHAK/pxa1088-mkbootimg.git
-get_src https://github.com/Chainfire/sgs4ext4fs
+get_src git://github.com/Chainfire/sgs4ext4fs
+get_src git://git.denx.de/u-boot.git
+	cd u-boot
+	checkout
+	make menuconfig
+	make tools
+	cp -fv tools/mkimage ../
+	cd ..
+get_src git://github.com/AKuHAK/pxa1088-mkbootimg.git
 	cd ..
 	
 	cp -fv $FILE $FILE1
